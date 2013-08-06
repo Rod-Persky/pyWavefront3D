@@ -2,9 +2,12 @@
 # -*- coding: utf-8 -*-
 #from distutils.core import setup
 
-from ez_setup import use_setuptools
-use_setuptools()
-from setuptools import setup
+try:
+    from setuptools import setup, find_packages
+except ImportError:
+    from ez_setup import use_setuptools
+    use_setuptools()
+    from setuptools import setup, find_packages
 
 import sys
 import os
@@ -19,7 +22,7 @@ if not PY3:
 
 thisdir = os.path.dirname(__file__)
 
-with open(os.path.join(thisdir, 'README')) as file:
+with open(os.path.join(thisdir, 'README.md')) as file:
     long_description = file.read()
 
 setup(name = 'pyWavefront3D',
@@ -69,5 +72,7 @@ setup(name = 'pyWavefront3D',
       package_dir = {'pyWavefront3D': 'pyWavefront3D'},
       
       zip_safe = True,
-      include_package_data = True
+      include_package_data = True,
+      
+      py_modules = ['ez_setup']
       )
